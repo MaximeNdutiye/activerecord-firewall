@@ -6,5 +6,6 @@ module ActiveRecord
   module Firewall
     mattr_accessor :current_name
     self.current_name = 'Current'
+    self.restrict_access = true
   end
 end

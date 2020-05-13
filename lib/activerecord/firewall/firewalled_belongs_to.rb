@@ -16,8 +16,15 @@ module ActiveRecord
         # deserializes the FirewalledIDType,
         # ensuring the FirewalledAccess exception will
         # get thrown
-        record.send(key_column_name)
+        record.send(key_column_name) unless Firewall.restrict_access
       end
+    end
+
+    def without_firewall
+      Firewall.restrict_access = false
+      yield
+    ensure
+      Firewall.restrict_access = true
     end
   end
 
